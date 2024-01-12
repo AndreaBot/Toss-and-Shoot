@@ -32,7 +32,8 @@ struct ContentView: View {
                 .ignoresSafeArea()
             
             VStack(spacing: 30) {
-                Text("Player \(playerScore) - \(opponentScore) Opponent")
+                
+                Text("Me  \(playerScore) - \(opponentScore)  AI")
                     .font(.title2)
                 
                 ZStack {
