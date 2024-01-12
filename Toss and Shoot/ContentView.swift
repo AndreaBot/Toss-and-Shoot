@@ -76,9 +76,23 @@ struct ContentView: View {
                 .padding()
                 .background(.regularMaterial)
                 .clipShape(RoundedRectangle(cornerRadius: 20))
+                
+                Button("Reset Game") {
+                    reset()
+                    playerScore = 0
+                    opponentScore = 0
+                }
+                .padding()
+                .font(.title3)
+                .foregroundColor(.primary)
+                .controlSize(.extraLarge)
+                .background(RoundedRectangle(cornerRadius: 10)
+                    .stroke(.primary, lineWidth: 3))
+                    
             }
             .padding()
         }
+        
     }
     
     func shoot(using shape: String) {
