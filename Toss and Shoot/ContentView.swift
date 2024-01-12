@@ -8,9 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
+
+    @State private var shapes = [
+        ShapeModel(name: "🪨", color: .purple),
+        ShapeModel(name: "📄", color: .blue),
+        ShapeModel(name: "✂️", color: .yellow)
+    ]
+
+    @State private var opponentShape = ShapeModel(name: "🪨", color: .purple)
     
-    @State private var shapes = ["🪨", "📄", "✂️"]
-    @State private var opponentShape = ""
     @State private var playerShape = ""
     @State private var message = "Shoot!"
     @State private var opponentScore = 0
@@ -33,9 +39,9 @@ struct ContentView: View {
                     VStack {
                         Spacer()
                         
-                        Text(opponentShape)
+                        Text(opponentShape.name)
                             .frame(maxWidth: 150, maxHeight: 150)
-                            .background(assignColor(to: opponentShape))
+                            .background(opponentShape.color)
                             .opacity(playersHaveShot ? 1 : 0)
                             .clipShape(Circle())
                             .font(.system(size: 70))
@@ -54,18 +60,18 @@ struct ContentView: View {
                             ForEach(shapes, id: \.self) { shape in
                                 Button() {
                                     opponentShape = shapes.randomElement()!
-                                    playerShape = shape
+                                    playerShape = shape.name
                                     playersHaveShot = true
                                     shoot(using: playerShape)
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) { [self] in
                                         reset()
                                     }
                                 } label: {
-                                    Text("\(shape)")
+                                    Text(shape.name)
                                         .font(.system(size: 50))
                                 }
                                 .frame(maxWidth: 150, maxHeight: 150)
-                                .background(assignColor(to: shape))
+                                .background(shape.color)
                                 .clipShape(Circle())
                                 .padding(5)
                             }
@@ -96,43 +102,33 @@ struct ContentView: View {
     }
     
     func shoot(using shape: String) {
-        if shape == opponentShape {
+        if shape == opponentShape.name {
             message = "It's a tie!"
             playerHas = .tied
-        } else if shape == "🪨" && opponentShape == "📄" {
+        } else if shape == "🪨" && opponentShape.name == "📄" {
             message = "Paper beats Rock!"
             opponentScore += 1
             playerHas = .lost
-        } else if shape == "🪨" && opponentShape == "✂️" {
+        } else if shape == "🪨" && opponentShape.name == "✂️" {
             message = "Rock beats Scissors!"
             playerScore += 1
             playerHas = .won
-        } else if shape == "📄" && opponentShape == "✂️" {
+        } else if shape == "📄" && opponentShape.name == "✂️" {
             message = "Scissors beats Paper!"
             opponentScore += 1
             playerHas = .lost
-        } else if shape == "📄" && opponentShape == "🪨" {
+        } else if shape == "📄" && opponentShape.name == "🪨" {
             message = "Paper beats Rock!"
             playerScore += 1
             playerHas = .won
-        } else if shape == "✂️" && opponentShape == "🪨" {
+        } else if shape == "✂️" && opponentShape.name == "🪨" {
             message = "Rock beats Scissor!"
             opponentScore += 1
             playerHas = .lost
-        } else if shape == "✂️" && opponentShape == "📄" {
+        } else if shape == "✂️" && opponentShape.name == "📄" {
             message = "Scissors beats Paper!"
             playerScore += 1
             playerHas = .won
-        }
-    }
-    
-    func assignColor(to shape: String) -> Color {
-        if shape == "🪨" {
-            return .purple
-        } else if shape == "📄" {
-            return .blue
-        } else {
-            return .yellow
         }
     }
     
