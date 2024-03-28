@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		62189DD12BB615DB00B72186 /* EvaluateEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62189DD02BB615DB00B72186 /* EvaluateEnum.swift */; };
+		62189DD32BB615F900B72186 /* ContentView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62189DD22BB615F900B72186 /* ContentView-ViewModel.swift */; };
 		6297BA872B5077E900BF73FB /* Toss_and_ShootApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6297BA862B5077E900BF73FB /* Toss_and_ShootApp.swift */; };
 		6297BA892B5077E900BF73FB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6297BA882B5077E900BF73FB /* ContentView.swift */; };
 		6297BA8B2B5077EB00BF73FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6297BA8A2B5077EB00BF73FB /* Assets.xcassets */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		62189DD02BB615DB00B72186 /* EvaluateEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluateEnum.swift; sourceTree = "<group>"; };
+		62189DD22BB615F900B72186 /* ContentView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView-ViewModel.swift"; sourceTree = "<group>"; };
 		6297BA832B5077E900BF73FB /* Toss and Shoot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Toss and Shoot.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6297BA862B5077E900BF73FB /* Toss_and_ShootApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toss_and_ShootApp.swift; sourceTree = "<group>"; };
 		6297BA882B5077E900BF73FB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -55,6 +59,8 @@
 			children = (
 				6297BA862B5077E900BF73FB /* Toss_and_ShootApp.swift */,
 				6297BA882B5077E900BF73FB /* ContentView.swift */,
+				62189DD22BB615F900B72186 /* ContentView-ViewModel.swift */,
+				62189DD02BB615DB00B72186 /* EvaluateEnum.swift */,
 				6297BA962B51D79C00BF73FB /* ShapeModel.swift */,
 				6297BA8A2B5077EB00BF73FB /* Assets.xcassets */,
 				6297BA8C2B5077EB00BF73FB /* Preview Content */,
@@ -141,6 +147,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6297BA972B51D79C00BF73FB /* ShapeModel.swift in Sources */,
+				62189DD12BB615DB00B72186 /* EvaluateEnum.swift in Sources */,
+				62189DD32BB615F900B72186 /* ContentView-ViewModel.swift in Sources */,
 				6297BA892B5077E900BF73FB /* ContentView.swift in Sources */,
 				6297BA872B5077E900BF73FB /* Toss_and_ShootApp.swift in Sources */,
 			);

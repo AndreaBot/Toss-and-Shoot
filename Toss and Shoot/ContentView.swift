@@ -9,25 +9,8 @@
 import SwiftUI
 
 struct ContentView: View {
-
-    @State private var shapes = [
-        ShapeModel(name: "🪨", color: .purple),
-        ShapeModel(name: "📄", color: .blue),
-        ShapeModel(name: "✂️", color: .yellow)
-    ]
-
-    @State private var opponentShape = ShapeModel(name: "🪨", color: .purple)
     
-    @State private var playerShape = ""
-    @State private var message = "Shoot!"
-    @State private var opponentScore = 0
-    @State private var playerScore = 0
-    
-    @State private var playersHaveShot = false
-    @State private var playerHas = Evaluate.neutral
-    
-    @State private var selectedButton = 4
-    
+    @State private var viewModel = ViewModel()
     
     var body: some View {
         ZStack {
@@ -36,51 +19,44 @@ struct ContentView: View {
             
             VStack(spacing: 30) {
                 
-                Text("Me  \(playerScore) - \(opponentScore)  AI")
+                Text("Me  \(viewModel.playerScore) - \(viewModel.opponentScore)  A.I.")
                     .font(.title2)
                 
                 ZStack {
                     VStack {
                         Spacer()
                         
-                        Text(opponentShape.name)
+                        Text(viewModel.opponentShape.name)
                             .frame(maxWidth: 150, maxHeight: 150)
-                            .background(opponentShape.color)
-                            .opacity(playersHaveShot ? 1 : 0)
+                            .background(viewModel.opponentShape.color)
+                            .opacity(viewModel.playersHaveShot ? 1 : 0)
                             .clipShape(Circle())
                             .font(.system(size: 70))
                         
                         Spacer()
                         
-                        Text(message)
+                        Text(viewModel.message)
                             .font(.title)
                             .frame(minWidth: 50, maxWidth: .infinity, minHeight: 30, maxHeight: 50)
-                            .background(assignColor(to: playerHas))
+                            .background(viewModel.assignColor(to: viewModel.playerHas))
                             .clipShape(.capsule)
                         
                         Spacer()
                         
                         HStack(spacing: 15) {
-                            ForEach(Array(shapes.indices), id: \.self) { index in
+                            ForEach(Array(viewModel.shapes.indices), id: \.self) { index in
                                 Button {
-                                    selectedButton = index
-                                    opponentShape = shapes.randomElement()!
-                                    playerShape = shapes[index].name
-                                    playersHaveShot = true
-                                    shoot(using: playerShape)
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) { [self] in
-                                        reset()
-                                    }
+                                    viewModel.shoot(index)
                                 } label: {
-                                    Text(shapes[index].name)
+                                    Text(viewModel.shapes[index].name)
                                         .font(.system(size: 50))
                                 }
                                 .frame(maxWidth: 150, maxHeight: 150)
-                                .background(shapes[index].color)
+                                .background(viewModel.shapes[index].color)
                                 .clipShape(Circle())
                                 .overlay(
                                     Circle()
-                                        .stroke(selectedButton == index ? .primary : Color.clear, lineWidth: 6)
+                                        .stroke(viewModel.selectedButton == index ? .primary : Color.clear, lineWidth: 6)
                                 )
                             }
                         }
@@ -93,9 +69,7 @@ struct ContentView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 20))
                 
                 Button("Reset Score") {
-                    reset()
-                    playerScore = 0
-                    opponentScore = 0
+                    viewModel.restartGame()
                 }
                 .padding()
                 .font(.title3)
@@ -106,60 +80,6 @@ struct ContentView: View {
             }
             .padding()
         }
-    }
-    
-    func shoot(using shape: String) {
-        if shape == opponentShape.name {
-            message = "It's a tie!"
-            playerHas = .tied
-        } else if shape == "🪨" && opponentShape.name == "📄" {
-            message = "Paper beats Rock!"
-            opponentScore += 1
-            playerHas = .lost
-        } else if shape == "🪨" && opponentShape.name == "✂️" {
-            message = "Rock beats Scissors!"
-            playerScore += 1
-            playerHas = .won
-        } else if shape == "📄" && opponentShape.name == "✂️" {
-            message = "Scissors beats Paper!"
-            opponentScore += 1
-            playerHas = .lost
-        } else if shape == "📄" && opponentShape.name == "🪨" {
-            message = "Paper beats Rock!"
-            playerScore += 1
-            playerHas = .won
-        } else if shape == "✂️" && opponentShape.name == "🪨" {
-            message = "Rock beats Scissor!"
-            opponentScore += 1
-            playerHas = .lost
-        } else if shape == "✂️" && opponentShape.name == "📄" {
-            message = "Scissors beats Paper!"
-            playerScore += 1
-            playerHas = .won
-        }
-    }
-    
-    func assignColor(to result: Evaluate) -> Color {
-        if result == .neutral {
-            return .clear
-        }  else if result == .tied {
-            return .secondary
-        } else if result == .won {
-            return .green
-        } else {
-            return .red
-        }
-    }
-    
-    func reset() {
-        playersHaveShot = false
-        message = "Shoot!"
-        playerHas = .neutral
-        selectedButton = 4
-    }
-    
-    enum Evaluate {
-        case neutral; case tied; case won; case lost
     }
 }
 
